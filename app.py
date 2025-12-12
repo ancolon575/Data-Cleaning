@@ -70,6 +70,13 @@ if uploaded_file is not None:
                 df_new = df_cleaned.dropna()
                 st.session_state["df_cleaned"] = df_new
                 st.success("Cleaning complete!")
+                csv = df_cleaned.to_csv(index=False).encode("utf-8")
+                st.download_button(
+                    "Download Cleaned File",
+                    data=csv,
+                    file_name="cleaned_output.csv",
+                    mime="text/csv",
+                )
 
         # REMOVING DUPLICATES
         elif clean_choice == "Remove Duplicates":
@@ -80,6 +87,13 @@ if uploaded_file is not None:
                 dup_count = initial_rows - len(df_new)
                 st.session_state["df_cleaned"] = df_new
                 st.success(f"Removed {dup_count} duplicates!")
+                csv = df_cleaned.to_csv(index=False).encode("utf-8")
+                st.download_button(
+                    "Download Cleaned File",
+                    data=csv,
+                    file_name="cleaned_output.csv",
+                    mime="text/csv",
+                )
 
 
         # CLEAN INDIVIDUAL COLUMNS
